@@ -86,14 +86,14 @@ async def main():
 	# Generate components
 	comp_dir = file_manager.create_overwrite_directory('./temp', 'components')
 
-	for component_name in tree_components:
-		[component_code] = agent.generate_component_code([f'a {component_name} for {project_name}'])
-		file_manager.create_file(comp_dir, f'{component_name}.js', component_code)
+	# for component_name in tree_components:
+	# 	[component_code] = agent.generate_component_code([f'a {component_name} for {project_name}'])
+	# 	file_manager.create_file(comp_dir, f'{component_name}.js', component_code)
 
 	# * batch generate example
-	# component_codes = agent.generate_component_code([f'a {component_name} for {project_name}'] for component_name in tree_components)
-	# for component_code, component_name in zip(component_codes, tree_components):
-	# 	file_manager.create_file(comp_dir, f'{component_name}.js', component_code)
+	component_codes = agent.generate_component_code([f'a {component_name} for {project_name}'] for component_name in tree_components)
+	for component_code, component_name in zip(component_codes, tree_components):
+		file_manager.create_file(comp_dir, f'{component_name}.js', component_code)
 
 	# Aggregate into pages
 	pages_dir_subtree = project_tree.find_node_by_name(target_name='pages')
